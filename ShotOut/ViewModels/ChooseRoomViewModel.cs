@@ -13,6 +13,7 @@ namespace ShotOut.ViewModels
     internal class ChooseRoomViewModel : BindableBase
     {
         ObservableCollection<RoomViewModel> _rooms = new ObservableCollection<RoomViewModel>();
+        ObservableCollection<GameMode> _gameMode = new ObservableCollection<GameMode>() { ViewModels.GameMode.OnePlayer, ViewModels.GameMode.MultiPlayer };
         RoomViewModel _newRoom;
 
         ICommand joinRoom = new DelegateCommand(addPlayer);
@@ -30,6 +31,11 @@ namespace ShotOut.ViewModels
             set { SetProperty(ref _newRoom, value); }
         }
 
+        public ObservableCollection<GameMode> GameMode
+        {
+            get { return _gameMode; }
+        }
+
         private static void addPlayer()
         {
             throw new NotImplementedException();
@@ -38,5 +44,8 @@ namespace ShotOut.ViewModels
         {
             throw new NotImplementedException();
         }
+
+        public ICommand JoinRoom { get => joinRoom; }
+        public ICommand CreateRoom { get => createRoom; }
     }
 }

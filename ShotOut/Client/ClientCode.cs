@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShotOut.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,8 +12,8 @@ namespace ShotOut.Client
     class ClientCode
     {
         TcpClient client = new TcpClient();
-        IPAddress address = new IPAddress(); //serverIP
-        int port = 0; //serverPort
+        IPAddress address = IPAddress.Parse();
+        int port = 0; //serverPort constants list
 
         IPEndPoint remoteEndpoint = new IPEndPoint(address, port);
         client.Connect(remoteEndpoint);

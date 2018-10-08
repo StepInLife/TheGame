@@ -71,6 +71,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Client\ClientCode.cs" />
+    <Compile Include="Client\IClientService.cs" />
     <Compile Include="ViewModels\ChooseRoomViewModel.cs" />
     <Compile Include="ViewModels\GameMode.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

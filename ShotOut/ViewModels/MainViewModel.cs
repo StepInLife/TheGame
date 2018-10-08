@@ -15,7 +15,8 @@ namespace ShotOut.ViewModels
         public MainViewModel()
         {
             _viewModels.Add( typeof(WaitStartGameViewModel).Name, new WaitStartGameViewModel());
-            CurrentViewModel = _viewModels[typeof(WaitStartGameViewModel).Name];
+            _viewModels.Add(typeof(LoginViewModel).Name, new LoginViewModel());
+            CurrentViewModel = _viewModels[typeof(LoginViewModel).Name];
         }
 
         public BindableBase CurrentViewModel

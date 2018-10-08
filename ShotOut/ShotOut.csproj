@@ -73,7 +73,6 @@
     <Compile Include="Client\ClientCode.cs" />
     <Compile Include="ViewModels\ChooseRoomViewModel.cs" />
     <Compile Include="ViewModels\GameMode.cs" />
-    <Compile Include="ViewModels\ILoginViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />

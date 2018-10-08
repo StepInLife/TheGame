@@ -7,13 +7,28 @@
         xmlns:vm="clr-namespace:ShotOut.ViewModels"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True}"
-        Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" >
+        Title="MainView" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowState="Maximized" >
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:WaitStartGameViewModel}" >
             <local:WaitStartGameView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}" >
+            <local:LoginView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
-        <ContentPresenter Content="{Binding CurrentViewModel}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter Grid.Row="1"
+                          Grid.Column="1"
+                          Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

@@ -9,7 +9,7 @@ using Prism.Mvvm;
 
 namespace ShotOut.ViewModels
 {
-    internal class LoginViewModel : BindableBase, ILoginViewModel
+    public class LoginViewModel : BindableBase
     {
         string _nickname;
         string _server;

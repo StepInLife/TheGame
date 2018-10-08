@@ -1,8 +1,9 @@
 ﻿<Application x:Class="ShotOut.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ShotOut">
+             xmlns:local="clr-namespace:ShotOut"
+             xmlns:vm="clr-namespace:ShotOut.ViewModels"
+             xmlns:v="clr-namespace:ShotOut.Views">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>

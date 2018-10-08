@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,9 +8,16 @@ using System.Threading.Tasks;
 
 namespace ShotOut.ViewModels
 {
-    class WaitStartGameViewModel
+    public class WaitStartGameViewModel : BindableBase
     {
-        ObservableCollection<TeamViewModel> teams;
-        public ObservableCollection<TeamViewModel> Teams { get => teams; set => teams = value; }
+        ObservableCollection<TeamViewModel> teams = new ObservableCollection<TeamViewModel>();
+        public ObservableCollection<TeamViewModel> Teams
+        {
+            get => teams;
+            set
+            {
+                SetProperty(ref teams, value);
+            }
+        }
     }
 }

@@ -4,9 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShotOut.Views"
+        xmlns:vm="clr-namespace:ShotOut.ViewModels"
         mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800">
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True}"
+        Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" >
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:WaitStartGameViewModel}" >
+            <local:WaitStartGameView/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        
+        <ContentPresenter Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

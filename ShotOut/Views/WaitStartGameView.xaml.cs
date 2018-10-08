@@ -17,7 +17,7 @@ namespace ShotOut.Views
     /// <summary>
     /// Interaction logic for WaitStartGameView.xaml
     /// </summary>
-    public partial class WaitStartGameView : Window
+    public partial class WaitStartGameView : UserControl
     {
         public WaitStartGameView()
         {

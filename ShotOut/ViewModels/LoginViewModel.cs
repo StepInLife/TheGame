@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Prism.Commands;
 using Prism.Mvvm;
+using ShotOut.Client;
 
 namespace ShotOut.ViewModels
 {
@@ -13,9 +14,19 @@ namespace ShotOut.ViewModels
     {
         string _nickname;
         string _server;
-        ICommand _okCommand = new DelegateCommand(login);
-        ICommand _cancelCommand = new DelegateCommand(logout);
 
+        IClientService _clientService;
+
+        ICommand _okCommand;
+        Action _login;
+        ICommand _cancelCommand;
+        Action _cancel;
+
+        public LoginViewModel(Action login, Action cancel)
+        {
+            _login = login;
+            _cancel = cancel;
+        }
         public string Nickname
         {
             get
@@ -41,17 +52,36 @@ namespace ShotOut.ViewModels
             }
         }
 
-        public ICommand OkCommand { get => _okCommand; }
-        public ICommand CancelCommand { get => _cancelCommand; }
-
-        private static void login()
+        public ICommand OkCommand
         {
-            throw new NotImplementedException();
+            get
+            {
+                return _okCommand ?? (_okCommand = new DelegateCommand(_login));
+            }
+        }
+        public ICommand CancelCommand
+        {
+            get
+            {
+                return _cancelCommand ?? (_cancelCommand = new DelegateCommand(_cancel));
+            }
         }
 
-        private static void logout()
+
+        private void login()
         {
-            throw new NotImplementedException();
+            int error = _clientService.ConnectToServer(Server, Nickname);
+            if (error != 0)
+            {
+                //error 
+            }
+
+
+        }
+
+        private void logout()
+        {
+            //close window
         }
     }
 }

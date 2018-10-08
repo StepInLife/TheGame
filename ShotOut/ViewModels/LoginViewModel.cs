@@ -37,7 +37,7 @@ namespace ShotOut.ViewModels
 
             set
             {
-                _server = value;
+                SetProperty(ref _server, value);
             }
         }
 

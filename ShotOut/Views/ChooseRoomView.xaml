@@ -1,0 +1,50 @@
+﻿<Window x:Class="ShotOut.Views.ChooseRoomView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShotOut.Views"
+        xmlns:vm="clr-namespace:ShotOut.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:ChooseRoomViewModel, IsDesignTimeCreatable=True}"
+        Title="ChooseRoomView" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Rooms" VerticalAlignment="Center" Margin="10" FontSize="24"></TextBlock>
+        <ListView ItemsSource="{Binding Rooms}" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left" Margin="10" Text="{Binding RoomName}"></TextBlock>
+                        <TextBlock DockPanel.Dock="Right" Margin="10" Text="{Binding RoomMode}"></TextBlock>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+            <TextBlock Text="Enter room name: " Margin="10"></TextBlock>
+            <TextBox Text="{Binding NewRoom.RoomName}" Margin="10"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical">
+            <TextBlock Text="Choose play mode: " Margin="10"></TextBlock>
+            <ComboBox Margin="10" ItemsSource="{Binding GameMode}" SelectedItem="{Binding NewRoom.RoomMode}"></ComboBox>
+        </StackPanel>
+
+        <Button Grid.Column="0" Grid.Row="4" Margin="10" Content="Join Room" FontSize="20" Command="{Binding JoinRoom}"></Button>
+        <Button Grid.Column="1" Grid.Row="4" Margin="10" Content="Create Room" FontSize="20" Command="{Binding CreateRoom}"></Button>
+    </Grid>
+</Window>

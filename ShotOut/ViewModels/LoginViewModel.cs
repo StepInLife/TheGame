@@ -14,7 +14,7 @@ namespace ShotOut.ViewModels
     {
         string _nickname;
         string _server;
-
+        int error;
         IClientService _clientService;
 
         ICommand _okCommand;
@@ -27,6 +27,17 @@ namespace ShotOut.ViewModels
             _login = login;
             _cancel = cancel;
         }
+
+        public int Error { get
+            {
+                return error;
+            }
+            set
+            {
+                SetProperty(ref error, value);
+            }
+        }
+
         public string Nickname
         {
             get

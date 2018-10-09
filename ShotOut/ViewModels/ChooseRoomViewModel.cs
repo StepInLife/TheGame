@@ -1,11 +1,13 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using ShotOut.MockServer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
 
 namespace ShotOut.ViewModels
@@ -16,8 +18,22 @@ namespace ShotOut.ViewModels
         ObservableCollection<GameMode> _gameMode = new ObservableCollection<GameMode>() { ViewModels.GameMode.OnePlayer, ViewModels.GameMode.MultiPlayer };
         RoomViewModel _newRoom;
 
-        ICommand joinRoom = new DelegateCommand(addPlayer);
-        ICommand createRoom = new DelegateCommand(addRoom);
+        Timer t;
+        MockClientServer mockClient;
+
+        ICommand joinRoom;
+        Action _joinRoom;
+        ICommand createRoom;
+        Action _createRoom;
+
+
+        public ChooseRoomViewModel(Action CreateRoom, Action JoinRoom)
+        {
+            mockClient = new MockClientServer();
+            _createRoom = CreateRoom;
+            _joinRoom = JoinRoom;
+
+        }
 
         public ObservableCollection<RoomViewModel> Rooms
         {
@@ -45,7 +61,36 @@ namespace ShotOut.ViewModels
             throw new NotImplementedException();
         }
 
-        public ICommand JoinRoom { get => joinRoom; }
-        public ICommand CreateRoom { get => createRoom; }
+        public ICommand JoinRoom
+        {
+            get
+            {
+                return joinRoom ?? (joinRoom = new DelegateCommand(_joinRoom));
+            }
+        }
+        public ICommand CreateRoom
+        {
+            get
+            {
+                return createRoom ?? (createRoom = new DelegateCommand(_createRoom));
+            }
+        }
+        private  void RefreshListOfRooms(object source, ElapsedEventArgs e)
+        {
+            List<string> Rooms = mockClient.GetRooms();
+
+        }
+
+
+        void StartTimer()
+        {
+            t = new Timer(50000);
+            t.Elapsed += new ElapsedEventHandler(RefreshListOfRooms);
+            t.Start();
+        }
+        void EndTimer()
+        {
+            t.Stop();
+        }
     }
 }

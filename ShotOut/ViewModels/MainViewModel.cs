@@ -14,13 +14,14 @@ namespace ShotOut.ViewModels
         Dictionary<string, BindableBase> _viewModels = new Dictionary<string, BindableBase>();
         BindableBase _currentViewModel;
         IClientService _clientService;
+        ClientService clientService;
 
         public MainViewModel()
         {
             _viewModels.Add( typeof(WaitStartGameViewModel).Name, new WaitStartGameViewModel());
             _viewModels.Add(typeof(LoginViewModel).Name, new LoginViewModel(login, logout));
-            _viewModels.Add(typeof(ChooseRoomViewModel).Name, new ChooseRoomViewModel());
-
+            _viewModels.Add(typeof(ChooseRoomViewModel).Name, new ChooseRoomViewModel(CreateRoom,JoinRoom));
+            clientService = new ClientService();
             CurrentViewModel = _viewModels[typeof(LoginViewModel).Name];
         }
 
@@ -35,12 +36,15 @@ namespace ShotOut.ViewModels
         private void login()
         {
             var lvm = CurrentViewModel as LoginViewModel;
-            int error = _clientService.ConnectToServer(lvm.Server, lvm.Nickname);
+            int error = clientService.ConnectToServer(lvm.Server, lvm.Nickname);
             if (error != 0)
             {
-                //error 
+                lvm.Error = error;
             }
-
+            else
+            {
+                CurrentViewModel = _viewModels[typeof(ChooseRoomViewModel).Name];
+            }
 
         }
 
@@ -48,5 +52,15 @@ namespace ShotOut.ViewModels
         {
             //close window
         }
+
+        private void CreateRoom()
+        {
+
+        }
+        private void JoinRoom()
+        {
+
+        }
+  
     }
 }

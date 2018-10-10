@@ -10,7 +10,7 @@ using ShotOut.Client;
 
 namespace ShotOut.ViewModels
 {
-    internal class LoginViewModel : BindableBase, ILoginViewModel
+    internal class LoginViewModel : BindableBase//, ILoginViewModel
     {
         string _nickname;
         string _server;
@@ -79,20 +79,20 @@ namespace ShotOut.ViewModels
         }
 
 
-        private void login()
-        {
-            int error = _clientService.ConnectToServer(Server, Nickname);
-            if (error != 0)
-            {
-                //error 
-            }
+        //private void login()
+        //{
+        //    int error = _clientService.ConnectToServer(Server, Nickname);
+        //    if (error != 0)
+        //    {
+        //        //error 
+        //    }
 
 
-        }
+        //}
 
-        private void logout()
-        {
-            //close window
-        }
+        //private void logout()
+        //{
+        //    //close window
+        //}
     }
 }

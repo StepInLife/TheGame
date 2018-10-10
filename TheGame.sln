@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShotOut", "ShotOut\ShotOut.csproj", "{01ACA140-D4AB-4E55-B5F7-D21DE26D3BEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShotOutServer", "ShotOutServer\ShotOutServer.csproj", "{E53FD0F0-07C1-4347-8B80-23C4B5C2611E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{01ACA140-D4AB-4E55-B5F7-D21DE26D3BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01ACA140-D4AB-4E55-B5F7-D21DE26D3BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01ACA140-D4AB-4E55-B5F7-D21DE26D3BEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E53FD0F0-07C1-4347-8B80-23C4B5C2611E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E53FD0F0-07C1-4347-8B80-23C4B5C2611E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E53FD0F0-07C1-4347-8B80-23C4B5C2611E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E53FD0F0-07C1-4347-8B80-23C4B5C2611E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

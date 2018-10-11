@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using GamePackages;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,10 @@ namespace ShotOutServer.ViewModel
         readonly int tcpPort = 8081;
         List<IPAddress> localAddress = new List<IPAddress>();
         IPAddress _chosenAddress;
+        List<TcpClient> clients = new List<TcpClient>();
         ICommand _start;
         ICommand _stop;
+        Serializing helper = new Serializing();
 
         public MainViewModel()
         {
@@ -58,12 +61,33 @@ namespace ShotOutServer.ViewModel
         {
             _listener = new TcpListener(Address, tcpPort);
             _listener.Start();
-            new Thread(this.Listen).Start();
+            Listen();
         }
 
-        private void Listen()
+        private async void Listen()
         {
-            throw new NotImplementedException();
+            try
+            {
+                while(true)
+                {
+                    TcpClient client = _listener.AcceptTcpClient();
+                    clients.Add(client);
+                    receivePackage(client);
+                }
+            }
+            catch { }
+        }
+
+        private void receivePackage(TcpClient client)
+        {
+            while(true)
+            {
+                byte[] buffer = new byte[1024];
+                client.GetStream().Read(buffer, 0, buffer.Length);
+                IPackage p = helper.Deserialize(buffer);
+
+                //if(p._packageType == PackageType.LoginInfo)
+            }
         }
 
         private void ServerDisconnect()

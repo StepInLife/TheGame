@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShotOut.Client
+namespace ShotOutServer.Interfaces
 {
-    interface IServer
+    interface IPlayer
     {
+        string Nickname { get; set; }
+        Guid Id { get; set; }
     }
 }

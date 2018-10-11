@@ -1,11 +1,15 @@
-﻿using ShotOut.ViewModels;
+﻿using GamePackages;
+using ShotOut.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ShotOut.Client
 {
@@ -13,49 +17,49 @@ namespace ShotOut.Client
     {
         readonly int tcpPort = 12345;
         TcpClient tcpClient;
-        IServer server;
         IPEndPoint remoteEP;
+        Serializing helper = new Serializing();
         public int ConnectToServer(string server, string nickname)
         {
-            //IPEndPoint localEP;
-            //int ctr = 0;
-            //IPAddress[] localAddress = Dns.GetHostAddresses(Dns.GetHostName());
-            //foreach (var item in localAddress)
-            //{
-            //    if (item.AddressFamily == AddressFamily.InterNetwork)
-            //        break;
-            //    ctr++;
-            //}
-            //localEP = new IPEndPoint(localAddress[ctr], tcpPort);
-            //tcpClient = new TcpClient(localEP);
+            IPEndPoint localEP;
+            int ctr = 0;
+            IPAddress[] localAddress = Dns.GetHostAddresses(Dns.GetHostName());
+            foreach (var item in localAddress)
+            {
+                if (item.AddressFamily == AddressFamily.InterNetwork)
+                    break;
+                ctr++;
+            }
 
-            //IPAddress[] remoteAddress = Dns.GetHostAddresses(server);
-            //ctr=0;
-            //foreach (var item in remoteAddress)
-            //{
-            //    if (item.AddressFamily == AddressFamily.InterNetwork)
-            //        break;
-            //    ctr++;
-            //}
-            //remoteEP = new IPEndPoint(remoteAddress[ctr], tcpPort); ;
-            //try
-            //{
-            //    tcpClient.Connect(remoteEP);
-            //}
-            //catch (Exception ex)
-            //{
-                
-            //}
-            //if (tcpClient.Connected)
+            localEP = new IPEndPoint(localAddress[ctr], tcpPort);
+            tcpClient = new TcpClient(localEP);
+
+            IPAddress[] remoteAddress = Dns.GetHostAddresses(server);
+            ctr = 0;
+            foreach (var item in remoteAddress)
+            {
+                if (item.AddressFamily == AddressFamily.InterNetwork)
+                    break;
+                ctr++;
+            }
+
+            remoteEP = new IPEndPoint(remoteAddress[ctr], tcpPort); ;
+            try
+            {
+                tcpClient.Connect(remoteEP);
+                var message = Encoding.UTF8.GetBytes(nickname);
+                Package login = new Package() { _packageType = PackageType.LoginInfo, _package = message };
+                var buffer = helper.Serialize(login);
+                tcpClient.GetStream().Write(buffer, 0, buffer.Length);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            if (tcpClient.Connected)
                 return 0;
-            //else
-              //  return 1;
+            else
+                return 1;
         }
-        //TcpClient client = new TcpClient();
-        //IPAddress address = IPAddress.Parse();
-        //int port = 0; //serverPort constants list
-
-        //IPEndPoint remoteEndpoint = new IPEndPoint(address, port);
-        //client.Connect(remoteEndpoint);
     }
 }

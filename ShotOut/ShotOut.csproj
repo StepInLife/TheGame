@@ -72,7 +72,6 @@
     </Compile>
     <Compile Include="Client\ClientService.cs" />
     <Compile Include="Client\IClientService.cs" />
-    <Compile Include="Client\IServer.cs" />
     <Compile Include="MockServer\MockClientServer.cs" />
     <Compile Include="ViewModels\ChooseRoomViewModel.cs" />
     <Compile Include="ViewModels\GameMode.cs" />
@@ -139,6 +138,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GamePackages\GamePackages.csproj">
+      <Project>{EA606F55-2A56-4C72-BE53-1AA620CFA3E0}</Project>
+      <Name>GamePackages</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

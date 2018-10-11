@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShotOutServer.ViewModel
+namespace GamePackages
 {
-    enum PackageType
+    public enum PackageType
     {
         LoginInfo,
         ErrorInfo,

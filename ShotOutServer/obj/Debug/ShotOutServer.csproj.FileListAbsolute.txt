@@ -23,3 +23,5 @@ C:\Users\student.LAN\source\repos\StepInLife\TheGame\ShotOutServer\bin\Debug\Pri
 C:\Users\student.LAN\source\repos\StepInLife\TheGame\ShotOutServer\bin\Debug\Prism.Wpf.xml
 C:\Users\student.LAN\source\repos\StepInLife\TheGame\ShotOutServer\obj\Debug\ShotOutServer.csproj.CopyComplete
 C:\Users\student.LAN\source\repos\StepInLife\TheGame\ShotOutServer\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\student.LAN\Source\Repos\StepInLife\TheGame\ShotOutServer\bin\Debug\GamePackages.dll
+C:\Users\student.LAN\Source\Repos\StepInLife\TheGame\ShotOutServer\bin\Debug\GamePackages.pdb

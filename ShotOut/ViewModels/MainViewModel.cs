@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Prism.Mvvm;
 using ShotOut.Client;
 
@@ -13,8 +14,8 @@ namespace ShotOut.ViewModels
     {
         Dictionary<string, BindableBase> _viewModels = new Dictionary<string, BindableBase>();
         BindableBase _currentViewModel;
-        IClientService _clientService;
         ClientService clientService;
+        Guid _myGuid;
 
         public MainViewModel()
         {
@@ -36,14 +37,15 @@ namespace ShotOut.ViewModels
         private void login()
         {
             var lvm = CurrentViewModel as LoginViewModel;
-            int error = clientService.ConnectToServer(lvm.Server, lvm.Nickname);
-            if (error != 0)
+            object connect = clientService.ConnectToServer(lvm.Server, lvm.Nickname);
+            if (connect is Guid)
             {
-                lvm.Error = error;
+                _myGuid = (Guid)connect;
+                CurrentViewModel = _viewModels[typeof(ChooseRoomViewModel).Name];
             }
             else
             {
-                CurrentViewModel = _viewModels[typeof(ChooseRoomViewModel).Name];
+                MessageBox.Show(connect.ToString());
             }
 
         }

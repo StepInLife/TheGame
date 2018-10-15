@@ -20,7 +20,7 @@ namespace GamePackages
             }
         }
 
-        public IPackage Deserialize (byte[] bytes)
+        public Package Deserialize (byte[] bytes)
         {
             MemoryStream ms = new MemoryStream();
             BinaryFormatter bf = new BinaryFormatter();

@@ -1,6 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
-using ShotOut.MockServer;
+//using ShotOut.MockServer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +19,7 @@ namespace ShotOut.ViewModels
         RoomViewModel _newRoom;
 
         Timer t;
-        MockClientServer mockClient;
+//        MockClientServer mockClient;
 
         ICommand joinRoom;
         Action _joinRoom;
@@ -29,7 +29,7 @@ namespace ShotOut.ViewModels
 
         public ChooseRoomViewModel(Action CreateRoom, Action JoinRoom)
         {
-            mockClient = new MockClientServer();
+ //           mockClient = new MockClientServer();
             _createRoom = CreateRoom;
             _joinRoom = JoinRoom;
 
@@ -77,7 +77,7 @@ namespace ShotOut.ViewModels
         }
         private  void RefreshListOfRooms(object source, ElapsedEventArgs e)
         {
-            List<string> Rooms = mockClient.GetRooms();
+   //         List<string> Rooms = mockClient.GetRooms();
 
         }
 

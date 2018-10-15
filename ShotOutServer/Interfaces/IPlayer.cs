@@ -11,4 +11,16 @@ namespace ShotOutServer.Interfaces
         string Nickname { get; set; }
         Guid Id { get; set; }
     }
+
+    internal class Player : IPlayer
+    {
+        public string Nickname { get; set; }
+        public Guid Id { get; set; }    
+
+        public Player (string n)
+        {
+            Nickname = n;
+            Id = Guid.NewGuid();
+        }
+    }
 }

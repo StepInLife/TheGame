@@ -8,6 +8,6 @@ namespace ShotOut.Client
 {
     internal interface IClientService
     {
-        int ConnectToServer(string server, string nickname);
+        object ConnectToServer(string server, string nickname);
     }
 }

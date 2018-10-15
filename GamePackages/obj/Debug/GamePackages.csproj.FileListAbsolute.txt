@@ -1,0 +1,5 @@
+C:\Users\student.LAN\Source\Repos\StepInLife\TheGame\GamePackages\bin\Debug\GamePackages.dll
+C:\Users\student.LAN\Source\Repos\StepInLife\TheGame\GamePackages\bin\Debug\GamePackages.pdb
+C:\Users\student.LAN\Source\Repos\StepInLife\TheGame\GamePackages\obj\Debug\GamePackages.csproj.CoreCompileInputs.cache
+C:\Users\student.LAN\Source\Repos\StepInLife\TheGame\GamePackages\obj\Debug\GamePackages.dll
+C:\Users\student.LAN\Source\Repos\StepInLife\TheGame\GamePackages\obj\Debug\GamePackages.pdb

@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using GamePackages;
+using Prism.Commands;
 using Prism.Mvvm;
 //using ShotOut.MockServer;
 using System;
@@ -15,7 +16,7 @@ namespace ShotOut.ViewModels
     internal class ChooseRoomViewModel : BindableBase
     {
         ObservableCollection<RoomViewModel> _rooms = new ObservableCollection<RoomViewModel>();
-        ObservableCollection<GameMode> _gameMode = new ObservableCollection<GameMode>() { ViewModels.GameMode.OnePlayer, ViewModels.GameMode.MultiPlayer };
+        ObservableCollection<GameMode> _gameMode = new ObservableCollection<GameMode>() { GamePackages.GameMode.OnePlayer, GamePackages.GameMode.MultiPlayer };
         RoomViewModel _newRoom;
 
         Timer t;

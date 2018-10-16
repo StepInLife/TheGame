@@ -25,6 +25,7 @@ namespace ShotOutServer.ViewModel
         ICommand _stop;
         Serializing helper = new Serializing();
         List<Player> _players = new List<Player>();
+        List<Room> _rooms = new List<Room>();
 
         public MainViewModel()
         {
@@ -89,21 +90,24 @@ namespace ShotOutServer.ViewModel
                 if(p._packageType == PackageType.LoginInfo)
                 {
                     var nick = Encoding.UTF8.GetString(p._package);
-                    Player newPlayer = new Player(nick);
+                    Player newPlayer = new Player(nick, client);
                     _players.Add(newPlayer);
-                    sendPackage(client, PackageType.LoginInfo, newPlayer.Id.ToString());
+                    sendPackage(client, PackageType.LoginInfo, newPlayer.Id, null);
                 }
                 else
                 {
                     string message = "Connection error. Please fill the authorization form.";
-                    sendPackage(client, PackageType.ErrorInfo, message);
+                    sendPackage(client, PackageType.ErrorInfo, null, message);
                 }
         }
 
-        private void sendPackage(TcpClient client, PackageType type, string m)
+        private void sendPackage(TcpClient client, PackageType type, Guid? g, string m)
         {
-            var message = Encoding.UTF8.GetBytes(m);
-            Package toSend = new Package() { _packageType = type, _package = message };
+            byte[] message = null;
+            if(!String.IsNullOrEmpty(m))
+                message = Encoding.UTF8.GetBytes(m);
+
+            Package toSend = new Package() { _packageType = type, _player = g, _package = message };
             var buffer = helper.Serialize(toSend);
             client.GetStream().Write(buffer, 0, buffer.Length);
         }

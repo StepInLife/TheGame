@@ -1,6 +1,6 @@
-﻿namespace ShotOut.ViewModels
+﻿namespace GamePackages
 {
-    enum GameMode
+    public enum GameMode
     {
         OnePlayer,
         MultiPlayer

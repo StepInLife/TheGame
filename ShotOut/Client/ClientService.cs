@@ -48,10 +48,11 @@ namespace ShotOut.Client
             try
             {
                 tcpClient.Connect(remoteEP);
-                var message = Encoding.UTF8.GetBytes(nickname);
-                Package login = new Package() { _packageType = PackageType.LoginInfo, _package = message };
-                var buff = helper.Serialize(login);
-                tcpClient.GetStream().Write(buff, 0, buff.Length);
+                sendMessage(PackageType.LoginInfo, null, nickname);
+                //var message = Encoding.UTF8.GetBytes(nickname);
+                //Package login = new Package() { _packageType = PackageType.LoginInfo, _player = null, _package = message };
+                //var buff = helper.Serialize(login);
+                //tcpClient.GetStream().Write(buff, 0, buff.Length);
             }
             catch (Exception ex)
             {
@@ -63,9 +64,22 @@ namespace ShotOut.Client
             Package p = helper.Deserialize(buffer);
 
             if (p._packageType == PackageType.LoginInfo)
-                return Guid.Parse(Encoding.UTF8.GetString(p._package));
+                return p._player;
             else
                 return Encoding.UTF8.GetString(p._package);
+        }
+
+        public void sendMessage(PackageType pt, Guid? g, string m)
+        {
+            var message = Encoding.UTF8.GetBytes(m);
+            Package p = new Package()
+            {
+                _packageType = pt,
+                _player = g,
+                _package = message
+            };
+            var buff = helper.Serialize(p);
+            tcpClient.GetStream().Write(buff, 0, buff.Length);
         }
     }
 }

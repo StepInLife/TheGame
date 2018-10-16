@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using GamePackages;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace ShotOut.ViewModels
 {
-    internal class RoomViewModel : BindableBase
+    internal class RoomViewModel : BindableBase, IRoom
     {
         string _roomName;
         GameMode _roomMode;  

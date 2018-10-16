@@ -10,6 +10,7 @@ namespace GamePackages
     public class Package : IPackage
     {
         public PackageType _packageType { get; set; }
+        public Guid? _player { get; set; }
         public byte[] _package { get; set; }
     }
 }

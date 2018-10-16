@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace GamePackages
 {
-    public interface IPackage
+    public interface IRoom
     {
-        PackageType _packageType { get; set; }
-        Guid? _player { get; set; }
-        byte[] _package { get; set; }
+        string RoomName { get; set; }
+        GameMode RoomMode { get; set; }
     }
 }

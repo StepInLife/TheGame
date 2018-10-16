@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace GamePackages
 {
-    public interface IPackage
+    public interface IPlayer
     {
-        PackageType _packageType { get; set; }
-        Guid? _player { get; set; }
-        byte[] _package { get; set; }
+        string Nickname { get; set; }
+        Guid Id { get; set; }
     }
 }

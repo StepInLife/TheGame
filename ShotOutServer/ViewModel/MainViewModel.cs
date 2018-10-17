@@ -38,12 +38,15 @@ namespace ShotOutServer.ViewModel
             localAddress.Add(IPAddress.Parse("127.0.0.1"));
             _start = new DelegateCommand(ServerConnect);
             _stop = new DelegateCommand(ServerDisconnect);
+            _rooms.Add(new Room("BetaRoom", GameMode.OnePlayer));
         }
 
         public List<IPAddress> LocalAddresses
         {
             get => localAddress;
         }
+
+        public IEnumerable<Room> Rooms => _rooms;
 
         public IPAddress Address
         {
@@ -90,15 +93,22 @@ namespace ShotOutServer.ViewModel
             if (p._packageType == PackageType.LoginInfo)
             {
                 var nick = Encoding.UTF8.GetString(p._package);
-                Player newPlayer = new Player(nick, client);
+                Player newPlayer = new Player(nick, client) { Owner = this };
+
                 _players.Add(newPlayer);
                 sendPackage(client, PackageType.LoginInfo, newPlayer.Id, null);
             }
             else if (p._packageType == PackageType.RoomInfo)
             {
-                foreach (var r in _rooms)
+                var message = Encoding.UTF8.GetString(p._package);
+                if (message == "RoomList")
                 {
-                    sendPackage(client, PackageType.RoomInfo,)
+                    foreach (var r in _rooms)
+                    {
+                        sendPackage(client, PackageType.RoomInfo, p._player, r.RoomName);
+                        sendPackage(client, PackageType.RoomInfo, p._player, r.RoomMode.ToString());
+                        sendPackage(client, PackageType.RoomInfo, p._player, r.PlayersAmount.ToString());
+                    }
                 }
             }
             else
@@ -108,7 +118,7 @@ namespace ShotOutServer.ViewModel
             }
         }
 
-        private void sendPackage(TcpClient client, PackageType type, Guid? g, string m)
+        public void sendPackage(TcpClient client, PackageType type, Guid? g, string m)
         {
             byte[] message = null;
             if (!String.IsNullOrEmpty(m))

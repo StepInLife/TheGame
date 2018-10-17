@@ -11,6 +11,7 @@ namespace ShotOutServer.Interfaces
     {
         public string RoomName { get; set; }
         public GameMode RoomMode { get; set; }
+        public int PlayersAmount { get; set; }
 
         public List<Player> Players = new List<Player>();
 

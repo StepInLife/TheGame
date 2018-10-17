@@ -19,9 +19,9 @@ namespace ShotOut.ViewModels
 
         public MainViewModel()
         {
-            _viewModels.Add( typeof(WaitStartGameViewModel).Name, new WaitStartGameViewModel());
+            _viewModels.Add(typeof(WaitStartGameViewModel).Name, new WaitStartGameViewModel());
             _viewModels.Add(typeof(LoginViewModel).Name, new LoginViewModel(login, logout));
-            _viewModels.Add(typeof(ChooseRoomViewModel).Name, new ChooseRoomViewModel(CreateRoom,JoinRoom));
+            _viewModels.Add(typeof(ChooseRoomViewModel).Name, new ChooseRoomViewModel(CreateRoom, JoinRoom));
             clientService = new ClientService();
             CurrentViewModel = _viewModels[typeof(LoginViewModel).Name];
         }
@@ -41,9 +41,12 @@ namespace ShotOut.ViewModels
             if (connect is Guid)
             {
                 _myGuid = (Guid)connect;
-                clientService.sendMessage(GamePackages.PackageType.RoomInfo, _myGuid, null);
+                clientService.sendMessage(GamePackages.PackageType.RoomInfo, _myGuid, "RoomList");
                 CurrentViewModel = _viewModels[typeof(ChooseRoomViewModel).Name];
-
+                while (clientService.getRoom() != null)
+                {
+                    (CurrentViewModel as ChooseRoomViewModel).Rooms.Add(clientService.getRoom());
+                }
             }
             else
             {
@@ -65,6 +68,6 @@ namespace ShotOut.ViewModels
         {
 
         }
-  
+
     }
 }

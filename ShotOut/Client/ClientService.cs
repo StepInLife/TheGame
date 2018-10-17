@@ -84,5 +84,36 @@ namespace ShotOut.Client
             var buff = helper.Serialize(p);
             tcpClient.GetStream().Write(buff, 0, buff.Length);
         }
+
+        public RoomViewModel getRoom()
+        {
+            byte[] buffer = new byte[1024];
+            int counter = 0;
+            //List<RoomViewModel> rooms = new List<RoomViewModel>();
+            RoomViewModel newRoom = new RoomViewModel();
+
+            do
+            {
+                int readed = tcpClient.GetStream().Read(buffer, 0, buffer.Length);
+                Package p = helper.Deserialize(buffer);
+
+                if (p._packageType != PackageType.RoomInfo)
+                    return null;
+                else
+                {
+                    counter++;
+                    var msg = Encoding.UTF8.GetString(p._package);
+                    if (counter == 1)
+                        newRoom.RoomName = msg;
+                    else if (counter == 2)
+                        newRoom.RoomMode = (GameMode)Enum.Parse(typeof(GameMode), msg);
+                    else
+                        newRoom.PlayersAmount = Convert.ToInt32(msg);
+                }
+
+            } while (counter < 3);
+
+            return newRoom;
+        }
     }
 }

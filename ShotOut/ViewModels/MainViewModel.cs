@@ -41,6 +41,7 @@ namespace ShotOut.ViewModels
             if (connect is Guid)
             {
                 _myGuid = (Guid)connect;
+                clientService.sendMessage(GamePackages.PackageType.RoomInfo, _myGuid, null);
                 CurrentViewModel = _viewModels[typeof(ChooseRoomViewModel).Name];
 
             }

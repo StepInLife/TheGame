@@ -42,7 +42,7 @@ namespace ShotOutServer.ViewModel
 
         public List<IPAddress> LocalAddresses
         {
-            get => localAddress; 
+            get => localAddress;
         }
 
         public IPAddress Address
@@ -71,7 +71,7 @@ namespace ShotOutServer.ViewModel
         {
             try
             {
-                while(true)
+                while (true)
                 {
                     TcpClient client = await _listener.AcceptTcpClientAsync();
                     clients.Add(client);
@@ -83,28 +83,35 @@ namespace ShotOutServer.ViewModel
 
         private void receivePackage(TcpClient client)
         {
-                byte[] buffer = new byte[1024];
-                client.GetStream().Read(buffer, 0, buffer.Length);
-                Package p = helper.Deserialize(buffer);
+            byte[] buffer = new byte[1024];
+            client.GetStream().Read(buffer, 0, buffer.Length);
+            Package p = helper.Deserialize(buffer);
 
-                if(p._packageType == PackageType.LoginInfo)
+            if (p._packageType == PackageType.LoginInfo)
+            {
+                var nick = Encoding.UTF8.GetString(p._package);
+                Player newPlayer = new Player(nick, client);
+                _players.Add(newPlayer);
+                sendPackage(client, PackageType.LoginInfo, newPlayer.Id, null);
+            }
+            else if (p._packageType == PackageType.RoomInfo)
+            {
+                foreach (var r in _rooms)
                 {
-                    var nick = Encoding.UTF8.GetString(p._package);
-                    Player newPlayer = new Player(nick, client);
-                    _players.Add(newPlayer);
-                    sendPackage(client, PackageType.LoginInfo, newPlayer.Id, null);
+                    sendPackage(client, PackageType.RoomInfo,)
                 }
-                else
-                {
-                    string message = "Connection error. Please fill the authorization form.";
-                    sendPackage(client, PackageType.ErrorInfo, null, message);
-                }
+            }
+            else
+            {
+                string message = "Connection error. Please fill the authorization form.";
+                sendPackage(client, PackageType.ErrorInfo, null, message);
+            }
         }
 
         private void sendPackage(TcpClient client, PackageType type, Guid? g, string m)
         {
             byte[] message = null;
-            if(!String.IsNullOrEmpty(m))
+            if (!String.IsNullOrEmpty(m))
                 message = Encoding.UTF8.GetBytes(m);
 
             Package toSend = new Package() { _packageType = type, _player = g, _package = message };

@@ -71,7 +71,10 @@ namespace ShotOut.Client
 
         public void sendMessage(PackageType pt, Guid? g, string m)
         {
-            var message = Encoding.UTF8.GetBytes(m);
+            byte[] message = null;
+            if (!String.IsNullOrEmpty(m))
+                message = Encoding.UTF8.GetBytes(m);
+            
             Package p = new Package()
             {
                 _packageType = pt,

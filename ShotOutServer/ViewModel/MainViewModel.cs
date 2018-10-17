@@ -93,22 +93,15 @@ namespace ShotOutServer.ViewModel
             if (p._packageType == PackageType.LoginInfo)
             {
                 var nick = Encoding.UTF8.GetString(p._package);
-                Player newPlayer = new Player(nick, client) { Owner = this };
-
+                Player newPlayer = new Player(nick, client);
                 _players.Add(newPlayer);
                 sendPackage(client, PackageType.LoginInfo, newPlayer.Id, null);
             }
             else if (p._packageType == PackageType.RoomInfo)
             {
-                var message = Encoding.UTF8.GetString(p._package);
-                if (message == "RoomList")
+                foreach (var r in _rooms)
                 {
-                    foreach (var r in _rooms)
-                    {
-                        sendPackage(client, PackageType.RoomInfo, p._player, r.RoomName);
-                        sendPackage(client, PackageType.RoomInfo, p._player, r.RoomMode.ToString());
-                        sendPackage(client, PackageType.RoomInfo, p._player, r.PlayersAmount.ToString());
-                    }
+                    sendPackage(client, PackageType.RoomInfo,)
                 }
             }
             else

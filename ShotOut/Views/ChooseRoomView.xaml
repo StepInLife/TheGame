@@ -35,7 +35,10 @@
                 <DataTemplate>
                     <DockPanel>
                         <TextBlock DockPanel.Dock="Left" Margin="10" Text="{Binding RoomName}"></TextBlock>
-                        <TextBlock DockPanel.Dock="Right" Margin="10" Text="{Binding RoomMode}"></TextBlock>
+                        <StackPanel DockPanel.Dock="Right">
+                            <TextBlock  Margin="10" Text="{Binding RoomMode}"></TextBlock>
+                            <TextBlock DockPanel.Dock="Right" Margin="10" Text="{Binding PlayersAmount}"></TextBlock>
+                        </StackPanel>
                     </DockPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

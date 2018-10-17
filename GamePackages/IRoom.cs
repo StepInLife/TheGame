@@ -10,5 +10,6 @@ namespace GamePackages
     {
         string RoomName { get; set; }
         GameMode RoomMode { get; set; }
+        int PlayersAmount { get; set; }
     }
 }

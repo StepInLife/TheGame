@@ -42,6 +42,7 @@ namespace ShotOut.ViewModels
             {
                 _myGuid = (Guid)connect;
                 CurrentViewModel = _viewModels[typeof(ChooseRoomViewModel).Name];
+
             }
             else
             {

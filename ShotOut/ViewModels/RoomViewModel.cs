@@ -13,7 +13,14 @@ namespace ShotOut.ViewModels
     internal class RoomViewModel : BindableBase, IRoom
     {
         string _roomName;
-        GameMode _roomMode;  
+        GameMode _roomMode;
+        int _playersAmount;
+
+        public int PlayersAmount
+        {
+            get { return _playersAmount; }
+            set { SetProperty(ref _playersAmount, value); }
+        }
 
         public string RoomName
         {

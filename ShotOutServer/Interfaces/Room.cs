@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace ShotOutServer.Interfaces
 {
+    [Serializable]
     class Room : IRoom
     {
         public string RoomName { get; set; }
         public GameMode RoomMode { get; set; }
         public int PlayersAmount { get; set; }
 
-        public List<Player> Players = new List<Player>();
+        public List<IPlayer> Players = new List<IPlayer>();
 
         public Room (string rn, GameMode gm)
         {

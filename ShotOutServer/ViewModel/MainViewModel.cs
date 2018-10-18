@@ -93,16 +93,9 @@ namespace ShotOutServer.ViewModel
             if (p._packageType == PackageType.LoginInfo)
             {
                 var nick = Encoding.UTF8.GetString(p._package);
-                Player newPlayer = new Player(nick, client);
+                Player newPlayer = new Player(nick, client) { Owner = this };
                 _players.Add(newPlayer);
                 sendPackage(client, PackageType.LoginInfo, newPlayer.Id, null);
-            }
-            else if (p._packageType == PackageType.RoomInfo)
-            {
-                foreach (var r in _rooms)
-                {
-                    sendPackage(client, PackageType.RoomInfo,)
-                }
             }
             else
             {

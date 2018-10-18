@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ShotOutServer.Interfaces
 {
+    [Serializable]
     internal class Player : IPlayer
     {
        byte[] buffer = new byte[1024];
@@ -40,7 +41,12 @@ namespace ShotOutServer.Interfaces
                     foreach (var r in Owner.Rooms)
                     {
                         var buffer = helper.Serialize(r);
-                        sendPackage(PackageType.RoomInfo, p._player, buffer);
+                        Package roomPackage = new Package() { _packageType = PackageType.RoomInfo, _player = p._player, _package = buffer };
+                        buffer = helper.Serialize(roomPackage);
+                        var size = BitConverter.GetBytes(buffer.Length);
+                        sendPackage(PackageType.SizeInfo, p._player, size);
+                        Client.GetStream().Write(buffer, 0, buffer.Length);
+                        //sendPackage(PackageType.RoomInfo, p._player, buffer);
                     }
                 }
             }

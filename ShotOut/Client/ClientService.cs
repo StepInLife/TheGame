@@ -2,6 +2,7 @@
 using ShotOut.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -85,35 +86,47 @@ namespace ShotOut.Client
             tcpClient.GetStream().Write(buff, 0, buff.Length);
         }
 
-        public RoomViewModel getRoom()
+        public ObservableCollection<RoomViewModel> getRooms()
         {
-            byte[] buffer = new byte[1024];
-            int counter = 0;
-            //List<RoomViewModel> rooms = new List<RoomViewModel>();
-            RoomViewModel newRoom = new RoomViewModel();
-
+            int readed = 0;
+            ObservableCollection<RoomViewModel> rooms = new ObservableCollection<RoomViewModel>();
+            
             do
             {
-                int readed = tcpClient.GetStream().Read(buffer, 0, buffer.Length);
+                byte[] buffer = new byte[1024];
+                NetworkStream stream = tcpClient.GetStream();
+                readed = stream.Read(buffer, 0, buffer.Length);
                 Package p = helper.Deserialize(buffer);
 
-                if (p._packageType != PackageType.RoomInfo)
-                    return null;
-                else
+                if (p._packageType == PackageType.SizeInfo)
                 {
-                    counter++;
-                    var msg = Encoding.UTF8.GetString(p._package);
-                    if (counter == 1)
-                        newRoom.RoomName = msg;
-                    else if (counter == 2)
-                        newRoom.RoomMode = (GameMode)Enum.Parse(typeof(GameMode), msg);
+                    var size = BitConverter.ToInt32(p._package, 0);
+                    var tmp = helper.Serialize(p);
+                    byte[] buff = new byte[size];
+                    var len = readed - tmp.Length;
+                    Array.Copy(buffer, tmp.Length, buff, 0, len);
+                    readed = stream.Read(buff, len, buff.Length - len);
+                    Package pack = helper.Deserialize(buff);
+                    RoomViewModel newRoom = new RoomViewModel();
+
+                    if (pack._packageType == PackageType.RoomInfo)
+                    {
+                        MemoryStream ms = new MemoryStream();
+                        BinaryFormatter bf = new BinaryFormatter();
+                        ms.Write(pack._package, 0, pack._package.Length);
+                        ms.Seek(0, SeekOrigin.Begin);
+                        newRoom = (RoomViewModel)bf.Deserialize(ms);
+                    }
                     else
-                        newRoom.PlayersAmount = Convert.ToInt32(msg);
+                        break;
                 }
 
-            } while (counter < 3);
+                else
+                    break;
 
-            return newRoom;
+            } while (readed > 0);
+
+            return rooms;
         }
     }
 }

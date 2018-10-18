@@ -43,10 +43,8 @@ namespace ShotOut.ViewModels
                 _myGuid = (Guid)connect;
                 clientService.sendMessage(GamePackages.PackageType.RoomInfo, _myGuid, "RoomList");
                 CurrentViewModel = _viewModels[typeof(ChooseRoomViewModel).Name];
-                while (clientService.getRoom() != null)
-                {
-                    (CurrentViewModel as ChooseRoomViewModel).Rooms.Add(clientService.getRoom());
-                }
+                (CurrentViewModel as ChooseRoomViewModel).Rooms = clientService.getRooms();
+
             }
             else
             {

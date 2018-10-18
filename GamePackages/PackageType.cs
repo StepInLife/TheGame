@@ -12,6 +12,7 @@ namespace GamePackages
         ErrorInfo,
         RoomInfo,
         TeamInfo,
-        PlayerInfo
+        PlayerInfo,
+        SizeInfo
     }
 }
